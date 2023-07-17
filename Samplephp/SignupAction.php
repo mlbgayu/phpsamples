@@ -3,7 +3,9 @@ $name = $_REQUEST["name"];
 $email = $_REQUEST["emailaddress"];
 $password =$_REQUEST["password"];
 $confirmpassword =$_REQUEST["confirmpassword"];
-$targetDir = "C:\\Users\\mlbga\\OneDrive\\Desktop\\uploads\\";
+$sex=$_REQUEST["sex"];
+$age=$_REQUEST["age"];
+$targetDir = "C:\\Users\\mlbga\\PhpstormProjects\\Samplephp\\img\\";
 $file =  basename($_FILES["uploadphoto"]["name"]);
 $srcFile = $_FILES["uploadphoto"]["tmp_name"];
 $fileType = strtolower(pathinfo($file,PATHINFO_EXTENSION));
@@ -28,13 +30,21 @@ if ($count > 0){
        echo "<div style='color: red;'>The user with $email already exist.</div>";
 }else{
        $target_file = addslashes($target_file);
-       $insertsql= "insert into users(name,email,password,file) value('$name','$email','$password','$target_file')";
+       $insertsql= "insert into users(name,email,password,sex,age,file) value('$name','$email','$password','$sex','$age','$target_file')";
        $result=$conn->query($insertsql);
-       echo "<div style='color: green'>The user $name profile has been successfully created.</div>";
+       echo "<div style='color: green'>The user  profile has been successfully created.</div>";
+}
+$users="select name,email,password,sex,age,file from users";
+$result=$conn->query($users);
+while($row = $result->fetch_assoc()) {
+    $email1 = $row["email"];
+    echo $email1;
+    echo "<br/>";
+
 }
 $conn->close();
 
-
+header("Location: /Users.php");
 
 
 

@@ -17,7 +17,8 @@
 <main role="main">
 <div class="container mt-3 py-3 rounded bg-light">
   <h2>Registration Form </h2>
-  <form action="Userregistration.php"  class="needs-validation" novalidate oninput='customPasswordValidation()' method="post" enctype="multipart/form-data">
+  <form action="SignupAction.php" class="XXneeds-validation" novalidate oninput='customPasswordValidation()' method="post" enctype="multipart/form-data">
+
     <div class="mb-3 mt-3">
       <label for="name" class="form-label"> Name</label>
       <br/>
@@ -49,6 +50,22 @@
       <div class="valid-feedback">valid.</div>
       <div class="invalid-feedback">please fill out this field.</div>
     </div>
+        <div class="mb-3>"
+             <label for="sex" id="sex" class="form-lable">Sex</label>
+        <br/>
+        <input type="text" id="sex" class="form-control" placeholder="your sex" name="sex" required>
+        <div class="valid-feedback">valid.</div>
+        <div class="invalid-feedback">please fill out this field.</div>
+        <br>
+        <div/>
+        <div class="mb-3">
+            <label for="age" id="age" class="form-lable">Age</label>
+            <br/>
+            <input type="number" id="age" name="age" class="form-control" placeholder="your age" required>
+            <div class="valid-feedback">valid.</div>
+            <div class="invalid-feedback">please fill out this field.</div>
+            <br>
+        </div>
     <div class="mb-3">
       <label for="Upload Photo" class="form-label">Upload Photo</label>
       <br/>
