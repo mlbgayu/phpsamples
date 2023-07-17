@@ -34,14 +34,6 @@ if ($count > 0){
        $result=$conn->query($insertsql);
        echo "<div style='color: green'>The user  profile has been successfully created.</div>";
 }
-$users="select name,email,password,sex,age,file from users";
-$result=$conn->query($users);
-while($row = $result->fetch_assoc()) {
-    $email1 = $row["email"];
-    echo $email1;
-    echo "<br/>";
-
-}
 $conn->close();
 
 header("Location: /Users.php");
