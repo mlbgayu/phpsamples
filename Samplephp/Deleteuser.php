@@ -7,8 +7,15 @@ $username = "mlb";
 $dbpassword = "admin123";
 $dbname="mlb";
 $conn = mysqli_connect($servername, $username, $dbpassword,$dbname);
-$users="delete from  users where user_id = $user_id";
-$result=$conn->query($users);
+$selectQuery = "select file  from  users where user_id = $user_id";
+$result=$conn->query($selectQuery);
+while($row = $result->fetch_assoc()) {
+    $file= $row["file"] ;
+    echo $file;
+    unlink($file);
+}
+$deleteQuery="delete from  users where user_id = $user_id";
+$result=$conn->query($deleteQuery);
 $conn->close();
 header("Location: /Samplephp/Users.php");
 
