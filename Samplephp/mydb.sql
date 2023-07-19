@@ -18,3 +18,8 @@ create table mlb.users
     constraint email unique (email)
 );
 select * from users;
+DELETE from users where user_id="11";
+insert into users (name , email, password, sex, age, file) values("manju","manjula@gmail.com","4848","female",20,"");
+update users set name="biya" where name="bhavya";
+select (name,user_id,)
+

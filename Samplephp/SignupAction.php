@@ -5,7 +5,7 @@ $password =$_REQUEST["password"];
 $confirmpassword =$_REQUEST["confirmpassword"];
 $sex=$_REQUEST["sex"];
 $age=$_REQUEST["age"];
-$targetDir = "C:\\Users\\mlbga\\PhpstormProjects\\Samplephp\\img\\";
+$targetDir = "C:\\xampp\\htdocs\\Samplephp\\img\\";
 $file =  basename($_FILES["uploadphoto"]["name"]);
 $srcFile = $_FILES["uploadphoto"]["tmp_name"];
 $fileType = strtolower(pathinfo($file,PATHINFO_EXTENSION));
@@ -35,19 +35,7 @@ if ($count > 0){
        echo "<div style='color: green'>The user  profile has been successfully created.</div>";
 }
 $conn->close();
-
-header("Location: /Users.php");
-
-
-
-
-
-
-
-
-
-
-
+header("Location: /Samplephp/Users.php");
 
 
 
