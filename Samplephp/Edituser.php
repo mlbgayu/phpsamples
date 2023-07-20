@@ -60,6 +60,7 @@ while($row = $result->fetch_assoc()) {
                 </div>
                 <div class="mb-3">
                     <label for="Photo" class="form-label">Photo</label>
+                    <input type="file" value="<?php echo $file ?>" id="uploadphoto" name="upload photo" class="form-control" placeholder="uploadphotoghere" required>
                     <img style="width: 50px;height: 50px" src="
         <?php echo "img/".basename($file) ?>
         ">
