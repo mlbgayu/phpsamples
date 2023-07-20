@@ -1,7 +1,6 @@
 <?php
 
 $user_id =  $_GET['id'];
-
 $servername = "localhost";
 $username = "mlb";
 $dbpassword = "admin123";
@@ -18,6 +17,4 @@ $deleteQuery="delete from  users where user_id = $user_id";
 $result=$conn->query($deleteQuery);
 $conn->close();
 header("Location: /Samplephp/Users.php");
-
-
 ?>

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </head>
 <body>
 <div style="padding: 50px;border: 2px solid">
@@ -18,6 +17,7 @@
     <th>sex</th>
     <th>age</th>
     <th>file</th>
+      <th>Edit</th>
       <th>Delete</th>
   </tr>
     <?php
@@ -47,26 +47,24 @@
         ">
     </td>
       <td>
+          <a class="btn btn-primary" href="/Samplephp/Edituser.php?id=<?php echo @$user_id ?>" role="button">Edit</a>
+      <td>
           <button class="btn btn-danger" data-href="/Samplephp/Deleteuser.php?id=<?php echo @$user_id ?>" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-target="#confirm-delete">
               Delete
           </button>
       </td>
-
   </tr>
     <?php
  }
  ?>
 </table>
 </div>
-
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
             </div>
-
             <div class="modal-body">
                 <p>You are about to delete one User, this procedure is irreversible.</p>
                 <p>Do you want to proceed?</p>
