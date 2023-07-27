@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="358150d6-8452-4360-b3d4-d5dd35d3ecbe" name="Changes" comment="" />
+    <list default="true" id="609761c8-049d-4cda-96df-225803947b06" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../MyHTMLs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyHTMLs/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +17,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectId" id="2SWORmhOXemqqerCAiHOPiJasVC" />
+  <component name="ProjectId" id="2SXwG8bxOs1t1ffs9PyLp74inhz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,38 +26,22 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="358150d6-8452-4360-b3d4-d5dd35d3ecbe" name="Changes" comment="" />
-      <created>1689258864714</created>
+      <changelist id="609761c8-049d-4cda-96df-225803947b06" name="Changes" comment="" />
+      <created>1689306134954</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689258864714</updated>
-      <workItem from="1689258865759" duration="97000" />
-      <workItem from="1689305520045" duration="608000" />
+      <updated>1689306134954</updated>
+      <workItem from="1689306135981" duration="63000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
