@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database.gayathri
      */
     public function run(): void
     {
@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
              'password'=>'india123$$',
              'salary'=>20000,
              'phone'=>'+91 9789780997'
+
          ]);
     }
 }
