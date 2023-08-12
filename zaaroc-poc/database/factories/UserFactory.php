@@ -25,6 +25,7 @@ class UserFactory extends Factory
             'age'=>fake()->randomNumber(2),
             'title'=>fake()->title(),
             'salary'=>fake()->randomDigit(),
+            'phone'=>fake()->phoneNumber(),
             'remember_token' => Str::random(10),
         ];
     }

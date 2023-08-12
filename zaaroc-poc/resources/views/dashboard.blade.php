@@ -26,6 +26,7 @@
                             <th>Age</th>
                             <th>Title</th>
                             <th>Salary</th>
+                            <th>Phone</th>
                             <th>Created At</th>
                         </tr>
                         </thead>
@@ -41,6 +42,7 @@
                         <td><?php  echo $user->age; ?></td>
                         <td><?php  echo $user->title; ?></td>
                         <td><?php  echo $user->salary; ?></td>
+                        <td><?php  echo $user->phone; ?></td>
                         <td><?php  echo $user->created_at; ?></td>
                     </tr>
 

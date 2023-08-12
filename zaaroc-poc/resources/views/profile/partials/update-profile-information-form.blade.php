@@ -47,6 +47,33 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="age" :value="__('age')" />
+            <x-text-input id="age" name="age" type="text" class="mt-1 block w-full" :value="old('age', $user->age)" required autofocus autocomplete="age" />
+            <x-input-error class="mt-2" :messages="$errors->get('age')" />
+        </div>
+
+        <div>
+            <x-input-label for="title" :value="__('title')" />
+            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $user->title)" required autofocus autocomplete="title" />
+            <x-input-error class="mt-2" :messages="$errors->get('title')" />
+        </div>
+
+
+        <div>
+            <x-input-label for="salary" :value="__('salary')" />
+            <x-text-input id="salary" name="salary" type="text" class="mt-1 block w-full" :value="old('salary', $user->salary)" required autofocus autocomplete="salary" />
+            <x-input-error class="mt-2" :messages="$errors->get('salary')" />
+        </div>
+
+
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

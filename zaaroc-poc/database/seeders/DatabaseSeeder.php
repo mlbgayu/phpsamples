@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
              'age' =>28,
              'title'=>'mrs',
              'password'=>'india123$$',
-             'salary'=>20000
+             'salary'=>20000,
+             'phone'=>'+91 9789780997'
          ]);
     }
 }

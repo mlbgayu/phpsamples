@@ -25,6 +25,7 @@ class User extends Authenticatable
         'age',
         'title',
         'salary',
+        'phone',
         'created_at',
         'updated_at'
     ];
