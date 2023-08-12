@@ -39,6 +39,37 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+
+           <!-- Title -->
+           <div class="mt-4">
+            <x-input-label for="title" :value="__('Title')" />
+            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autocomplete="title" />
+            <x-input-error :messages="$errors->get('title')" class="mt-2" />
+        </div>
+
+
+           <!-- Age -->
+           <div class="mt-4">
+            <x-input-label for="age" :value="__('Age')" />
+            <x-text-input id="age" class="block mt-1 w-full" type="text" name="age" :value="old('age')" required autocomplete="age" />
+            <x-input-error :messages="$errors->get('age')" class="mt-2" />
+        </div>
+
+
+         <!-- Salary -->
+         <div class="mt-4">
+            <x-input-label for="salary" :value="__('Salary')" />
+            <x-text-input id="salary" class="block mt-1 w-full" type="text" name="salary" :value="old('salary')" required autocomplete="salary" />
+            <x-input-error :messages="$errors->get('salary')" class="mt-2" />
+        </div>
+
+        <!-- Phone -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
