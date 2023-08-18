@@ -3,21 +3,16 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-     
-
     </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                 <h1  class="badge bg-secondary">Welcome to {{ config('app.name') }}</h1>
-
-
-
-                </div>
-            </div>
+    <div class="d-flex justify-content-between mb-3 border p-3 bg-light">
+        <p class="h4 text-dark">Dashboard</p>
+        <div >
         </div>
     </div>
+    <div class="container-fluid border">
+        <p class="h6  text-primary">Welcome to {{ config('app.name') }}</p>
+    </div>
+
+
+
 </x-app-layout>

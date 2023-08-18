@@ -9,20 +9,20 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.gayathri
+     * Seed the application's database
      */
     public function run(): void
     {
-        User::factory(1000)->create();
+        //User::factory(1000)->create();
 
          User::factory()->create([
              'name' => 'Gayathri Vengadavarathan',
              'email' => 'mlbgayu@gmail.com',
-             'age' =>28,
-             'title'=>'mrs',
-             'password'=>'india123$$',
-             'salary'=>20000,
-             'phone'=>'+91 9789780997'
+            //   'age' =>28,
+            //  'title'=>'mrs',
+              'password'=>'password123',
+            //  'salary'=>20000,
+              'phone'=>'+91 9789780997'
 
          ]);
     }

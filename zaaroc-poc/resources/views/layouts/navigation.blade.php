@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/dashboard">
-         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> 
+         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,13 @@
           {{ Auth::user()->name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                  <a class="dropdown-item" href="{{ route('employee.readUser') }}">{{ __('User') }}</a>
+              </li>
             <li>
-            <a class="dropdown-item" href="/profile">{{ __('Profile') }}</a>
+            <a class="dropdown-item" href="profile">{{ __('Profile') }}</a>
         </li>
+
         <li>
         <form method="POST" action="{{ route('logout') }}">
                             @csrf
