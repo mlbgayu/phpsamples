@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Employee\EmployeeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+use \Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +23,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $employee = DB::table('employee')->get();
+    return view('dashboard', compact('employee'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -27,5 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/addemployee',[EmployeeController::class,'insertUser'])->name('employee.insertuser');
+Route::post('/editemployee',[EmployeeController::class,'updateUser'])->name('employee.updateUser');
+Route::post('/deleteemployee',[EmployeeController::class,'deleteUser'])->name('employee.deleteuser');
+Route::get('/reademployee', [EmployeeController::class, 'readUser'])
+->middleware(['auth', 'verified'])->name('employee.readUser');
 
 require __DIR__.'/auth.php';

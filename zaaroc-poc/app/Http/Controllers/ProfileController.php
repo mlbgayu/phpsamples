@@ -34,17 +34,15 @@ class ProfileController extends Controller
         }
 
 
-        Log::debug('Received Name'.$request->user()->name);
-        Log::debug('Received Phone'.$request->user()->phone);
+        Log::debug('Received Name' . $request->user()->name);
+        Log::debug('Received Phone' . $request->user()->phone);
 
-      
 
-         $request->user()->save();
-         
-       
+        $request->user()->save();
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
-       
+
     }
 
     /**

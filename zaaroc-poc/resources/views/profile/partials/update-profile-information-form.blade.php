@@ -1,45 +1,58 @@
-<section>
+<div  style="padding: 20px;margin: 2px solid black">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 >
             {{ __('Profile Information') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
+       </h2>
+        <p class="text-secondary">
             {{ __("Update your account's profile information and email address.") }}
         </p>
+                <script>
+                $('#form').validate({
+                    submitHandler: function(form) {
+                        $.ajax({
+                            url: form.action,
+                            type: form.method,
+                            data: $(form).serialize(),
+                            success: function(response) {
+                                $('#answers').html(response);
+                            }
+                        });
+                    }
+                });
+                </script>
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}">
         @csrf
         @method('patch')
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="name" >Name</label>
+                <input type="text"   class="form-control" id="name" name="name" value="{{$user->name}}">
+                <x-input-error class="form-control"  :messages="$errors->get('name')" />
+            </div><br/>
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-        </div>
-
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
+            <div class="form-group col-md-3">
+                <label for="email" >Email</label>
+                 <input type="email" name="email"  class="form-control" id="email" value="{{$user->email}}">
+                 <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            </div><br/>
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
-                    <p class="text-sm mt-2 text-gray-800">
+                    <p class="text-warning">
                         {{ __('Your email address is unverified.') }}
 
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button form="send-verification" class="text-warning">
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
+                        <p class="text-warning">
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
@@ -47,45 +60,25 @@
             @endif
         </div>
 
-        <div>
-            <x-input-label for="phone" :value="__('Phone')" />
-            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
-            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
-        </div>
+            <div class="form-group col-md-3">
+                <label for="phone" >Phone</label>
+                <input type="text"  class="form-control" name="phone" id="phone" value="{{$user->phone}}" size="100">
+                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+            </div><br/>
 
-        <div>
-            <x-input-label for="age" :value="__('age')" />
-            <x-text-input id="age" name="age" type="text" class="mt-1 block w-full" :value="old('age', $user->age)" required autofocus autocomplete="age" />
-            <x-input-error class="mt-2" :messages="$errors->get('age')" />
-        </div>
-
-        <div>
-            <x-input-label for="title" :value="__('title')" />
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $user->title)" required autofocus autocomplete="title" />
-            <x-input-error class="mt-2" :messages="$errors->get('title')" />
-        </div>
-
-
-        <div>
-            <x-input-label for="salary" :value="__('salary')" />
-            <x-text-input id="salary" name="salary" type="text" class="mt-1 block w-full" :value="old('salary', $user->salary)" required autofocus autocomplete="salary" />
-            <x-input-error class="mt-2" :messages="$errors->get('salary')" />
-        </div>
-
-
-
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
+            <div class="form-group col-md-3">
+                <button type="submit" type="button" class="btn btn-primary">{{ __('Save') }}</button>
+                @if (session('status') === 'profile-updated')
+                    <p
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-transition
+                        x-init="setTimeout(() => show = false, 2000)"
+                        class="text-success">
+                            {{ __('Saved.') }}
+                    </p>
             @endif
         </div>
+
     </form>
-</section>
+</div>
