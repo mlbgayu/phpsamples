@@ -61,7 +61,7 @@
         </div>
 
             <div class="form-group col-md-3">
-                <label for="phone" >Phone</label>
+                <label for="phone" >{{config('ui.phone')}}</label>
                 <input type="text"  class="form-control" name="phone" id="phone" value="{{$user->phone}}" size="100">
                 <x-input-error class="mt-2" :messages="$errors->get('phone')" />
             </div><br/>

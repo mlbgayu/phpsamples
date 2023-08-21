@@ -10,7 +10,7 @@
 
 
             <!-- Add User Button -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <button type="button" id="adduserbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 Add Users
             </button>
 

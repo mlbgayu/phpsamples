@@ -22,10 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/home', function () {
     $employee = DB::table('employee')->get();
-    return view('dashboard', compact('employee'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('home', compact('employee'));
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

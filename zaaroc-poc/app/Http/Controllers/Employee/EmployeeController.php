@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Validation\Validator;
 class EmployeeController extends Controller
 {
     public function index()
@@ -14,70 +14,115 @@ class EmployeeController extends Controller
 
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Aan email must contain @ and . symbol',
+            'image.required' => 'A image must be of jpeg, jpg or png',
+        ];
+    }
+
 
     public function insertUser(Request $request)
     {
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $phone = $request->input('phone');
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
-            /*Perform insertion*/
-            DB::table('employee')->insert([
-                ['photo' => $fileName, 'name' => $name,'email' => $email ,'phone' => $phone],
-            ]);
-        }
+        $validated = $request->validate([
 
-        $employee = DB::table('employee')->get();
-        return view('employee.employeetable', compact('employee'));
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:employee,email',
+            'phone' => 'required|string|size:10',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        try {
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            if ($request->hasFile('photo')) {
+                $file = $request->file('photo');
+                $fileName = $file->getClientOriginalName();
+                $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
+                /*Perform insertion*/
+                DB::table('employee')->insert([
+                    ['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone],
+                ]);
+            }
+
+            $employee = DB::table('employee')->get();
+            return view('employee.employeetable', compact('employee'));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function readUser(Request $request)
     {
-        $employee = DB::table('employee')->get();
-        return view('user', compact('employee'));
+        try {
+            $employee = DB::table('employee')->get();
+            return view('user', compact('employee'));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        }
     }
 
 
     public function updateUser(Request $request)
     {
-        $name = $request->input('editname');
-        $email = $request->input('editemail');
-        $phone = $request->input('editphone');
-        $id = $request->input('editid');
-        if ($request->hasFile('editphoto')) {
-            $file = $request->file('editphoto');
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
-           /*Perform Update*/
-            Log::debug("Id Govindan".$id);
-            DB::table('employee')
-                ->where('id', $id)
-                ->update(['photo' => $fileName, 'name' => $name,'email' => $email ,'phone' => $phone]);
-        }
-        else{
-            /*Perform Update*/
-            Log::debug("Id Govindan".$id);
-            DB::table('employee')
-                ->where('id', $id)
-                ->update( ['name' => $name,'email' => $email ,'phone' => $phone]);
+        $validated = $request->validate([
 
+            'editname' => 'required|string|max:255',
+            'editemail' => 'required|email|unique:employee,email',
+            'editphone' => 'required|string|size:10',
+            'editphoto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        try {
+            $name = $request->input('editname');
+            $email = $request->input('editemail');
+            $phone = $request->input('editphone');
+            $id = $request->input('editid');
+            if ($request->hasFile('editphoto')) {
+                $file = $request->file('editphoto');
+                $fileName = $file->getClientOriginalName();
+                $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
+                /*Perform Update*/
+                Log::debug("Id Govindan" . $id);
+                DB::table('employee')
+                    ->where('id', $id)
+                    ->update(['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone]);
+            } else {
+                /*Perform Update*/
+                Log::debug("Id Govindan" . $id);
+                DB::table('employee')
+                    ->where('id', $id)
+                    ->update(['name' => $name, 'email' => $email, 'phone' => $phone]);
+
+            }
+            $employee = DB::table('employee')->get();
+            return view('employee.employeetable', compact('employee'));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
-        $employee = DB::table('employee')->get();
-        return view('employee.employeetable', compact('employee'));
-        return response()->json(['message' => 'No file uploaded.'.$email]);
     }
 
     public function deleteUser(Request $request)
     {
-        $id = $request->input('deleteid');
-        /*Perform insertion*/
-        DB::table('employee')
+        try {
+            $id = $request->input('deleteid');
+            /*Perform insertion*/
+            DB::table('employee')
                 ->where('id', $id)
                 ->delete();
             $employee = DB::table('employee')->get();
             return view('employee.employeetable', compact('employee'));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        }
     }
 }
