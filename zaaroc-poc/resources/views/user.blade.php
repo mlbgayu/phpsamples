@@ -17,9 +17,19 @@
         </div>
     </div>
 
-    <div class="container-fluid border">
+    <div id="emplyeetable" class="container-fluid border">
         @include('employee.employeetable')
     </div>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 
 
     {{--Add User  Modal--}}
@@ -83,3 +93,4 @@
 
 <!-- Include your JS file -->
 <script src="{{ asset('js/zaaroz.js') }}"></script>
+<script src="{{ asset('js/pagination.js') }}"></script>

@@ -62,14 +62,38 @@ class EmployeeController extends Controller
     public function readUser(Request $request)
     {
         try {
-            $employee = DB::table('employee')->get();
+            $employee = DB::table('employees')->paginate(5);
             return view('user', compact('employee'));
+
+//            $perPage = 10; // Change this to your desired number of items per page
+//            $employee = DB::table('employees')->paginate($perPage);
+//
+//            return view('employee.employeetable', compact('employee'));
+
+
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
     }
 
+    public function paginateEmployee(Request $request)
+    {
+        try {
+//            $employee = DB::table('employees')->paginate(5);
+//            return view('user', compact('employee'));
+
+            $perPage = 10; // Change this to your desired number of items per page
+            $employee = DB::table('employees')->paginate($perPage);
+
+            return view('employee.employeetable', compact('employee'));
+
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        }
+    }
 
     public function updateUser(Request $request)
     {
@@ -90,19 +114,17 @@ class EmployeeController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
                 /*Perform Update*/
-                Log::debug("Id Govindan" . $id);
-                DB::table('employee')
+                DB::table('employees')
                     ->where('id', $id)
                     ->update(['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone]);
             } else {
                 /*Perform Update*/
-                Log::debug("Id Govindan" . $id);
                 DB::table('employee')
                     ->where('id', $id)
                     ->update(['name' => $name, 'email' => $email, 'phone' => $phone]);
 
             }
-            $employee = DB::table('employee')->get();
+            $employee = DB::table('employees')->get();
             return view('employee.employeetable', compact('employee'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -118,7 +140,7 @@ class EmployeeController extends Controller
             DB::table('employee')
                 ->where('id', $id)
                 ->delete();
-            $employee = DB::table('employee')->get();
+            $employee = DB::table('employees')->get();
             return view('employee.employeetable', compact('employee'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());

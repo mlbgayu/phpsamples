@@ -13,28 +13,38 @@
     <tbody>
     @foreach ($employee as $emp)
         <tr>
-            <td><img alt="Image" width="50" height="50" class="img-fluid img-thumbnail" src="storage/uploads/{{  $emp->photo }}" >
+            <td><img alt="Image" width="50" height="50" class="img-fluid img-thumbnail"
+                     src="storage/uploads/{{  $emp->photo }}">
             </td>
-           <td style="visibility:hidden;">{{  $emp->id }}</td>
+            <td style="visibility:hidden;">{{  $emp->id }}</td>
             <td>{{  $emp->name }}</td>
             <td>{{  $emp->email }}</td>
             <td>{{  $emp->phone }}</td>
-            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button></td>
-            <td><button type="button"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">Delete</button></td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                    Delete
+                </button>
+            </td>
         </tr>
     @endforeach
     </tbody>
 </table>
 
+
 <script>
-    $(document ).on("click","#userTable button.btn-primary",function() {
+    $(document).on("click", "#userTable button.btn-primary", function () {
         let tr = $(this).closest('tr');
         var photo = tr.find('img').attr("src");
         var id = tr.find('td:eq(1)').text();
         var name = tr.find('td:eq(2)').text();
         var email = tr.find('td:eq(3)').text();
         var phone = tr.find('td:eq(4)').text();
-         $('#editid').val(id);
+        $('#editid').val(id);
         $('#editname').val(name);
         $('#editemail').val(email);
         $('#editphone').val(phone);
@@ -45,7 +55,7 @@
         $('#erroreditphoto').text('');
     });
 
-    $(document ).on("click","#userTable button.btn-danger",function() {
+    $(document).on("click", "#userTable button.btn-danger", function () {
         let tr = $(this).closest('tr');
         var photo = tr.find('img').attr("src");
         var id = tr.find('td:eq(1)').text();
