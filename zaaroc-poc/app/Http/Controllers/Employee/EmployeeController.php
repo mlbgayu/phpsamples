@@ -41,9 +41,16 @@ class EmployeeController extends Controller
                 DB::table('employees')->insert([
                     ['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone],
                 ]);
+                $record = DB::table('employees')
+                    ->where('email', $email)->first();
+                $id = $record->id;
+                $user = [ 'name' => $name, 'email' => $email, 'phone' => $phone];
+                Helper::redis_set($id,json_encode($user));
             }
 
             $employee = DB::table('employees')->paginate(10);
+
+
             return view('employee.employeetable', compact('employee'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
