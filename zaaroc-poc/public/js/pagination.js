@@ -27,14 +27,10 @@ $(document).ready(function() {
             }
         });
     }
-
     // Initial content load
     fetchContent(currentPage);
-
     // Pagination click event
     $(document).on('click', '.pagination a', function(event) {
-
-
         event.preventDefault();
         currentPageText = $(this).text();
         if(currentPageText==="Next" ){

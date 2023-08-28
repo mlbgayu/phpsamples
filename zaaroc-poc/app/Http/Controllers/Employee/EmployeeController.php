@@ -2,30 +2,22 @@
 
 namespace App\Http\Controllers\Employee;
 
+use App\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Validator;
 class EmployeeController extends Controller
 {
+
     public function index()
     {
 
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'Aan email must contain @ and . symbol',
-            'image.required' => 'A image must be of jpeg, jpg or png',
-        ];
-    }
+
 
 
     public function insertUser(Request $request)
@@ -33,7 +25,7 @@ class EmployeeController extends Controller
         $validated = $request->validate([
 
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:employee,email',
+            'email' => 'required|email|unique:employees,email',
             'phone' => 'required|string|size:10',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -46,12 +38,12 @@ class EmployeeController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
                 /*Perform insertion*/
-                DB::table('employee')->insert([
+                DB::table('employees')->insert([
                     ['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone],
                 ]);
             }
 
-            $employee = DB::table('employee')->get();
+            $employee = DB::table('employees')->paginate(10);
             return view('employee.employeetable', compact('employee'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -62,14 +54,8 @@ class EmployeeController extends Controller
     public function readUser(Request $request)
     {
         try {
-            $employee = DB::table('employees')->paginate(5);
+            $employee = DB::table('employees')->paginate(10);
             return view('user', compact('employee'));
-
-//            $perPage = 10; // Change this to your desired number of items per page
-//            $employee = DB::table('employees')->paginate($perPage);
-//
-//            return view('employee.employeetable', compact('employee'));
-
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -80,9 +66,6 @@ class EmployeeController extends Controller
     public function paginateEmployee(Request $request)
     {
         try {
-//            $employee = DB::table('employees')->paginate(5);
-//            return view('user', compact('employee'));
-
             $perPage = 10; // Change this to your desired number of items per page
             $employee = DB::table('employees')->paginate($perPage);
 
@@ -100,31 +83,33 @@ class EmployeeController extends Controller
         $validated = $request->validate([
 
             'editname' => 'required|string|max:255',
-            'editemail' => 'required|email|unique:employee,email',
+            'editemail' => 'required|email',
             'editphone' => 'required|string|size:10',
-            'editphoto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            //'editphoto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         try {
             $name = $request->input('editname');
             $email = $request->input('editemail');
             $phone = $request->input('editphone');
             $id = $request->input('editid');
+            $user = ['name' => $name, 'email' => $email, 'phone' => $phone];
             if ($request->hasFile('editphoto')) {
                 $file = $request->file('editphoto');
                 $fileName = $file->getClientOriginalName();
                 $path = $file->storeAs('uploads', $fileName, 'public'); // Store the file in the "uploads" directory
                 /*Perform Update*/
+                $user = ['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone];
                 DB::table('employees')
                     ->where('id', $id)
-                    ->update(['photo' => $fileName, 'name' => $name, 'email' => $email, 'phone' => $phone]);
+                    ->update($user);
             } else {
                 /*Perform Update*/
-                DB::table('employee')
+                DB::table('employees')
                     ->where('id', $id)
-                    ->update(['name' => $name, 'email' => $email, 'phone' => $phone]);
-
+                    ->update($user);
             }
-            $employee = DB::table('employees')->get();
+            Helper::redis_set($id,json_encode($user));
+            $employee = DB::table('employees')->paginate(10);
             return view('employee.employeetable', compact('employee'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -132,12 +117,34 @@ class EmployeeController extends Controller
         }
     }
 
-    public function deleteUser(Request $request)
+    public function readUpdateUser(Request $request)
+    {
+        $jsondata = $request->json()->all();
+        $redisKey = $jsondata['userid'];
+        if(!Redis::exists($redisKey)){
+
+            $record = DB::table('employees')->where('id', $redisKey)->first();
+
+            $result = [
+                'id'=>$record->id,
+                'name'=>$record->name,
+                'email'=>$record->email,
+                'phone'=>$record->phone
+
+            ];
+            Helper::redis_set($redisKey,json_encode($result));
+        }
+        $emp =  Helper::redis_get($redisKey);
+        return json_decode($emp);
+
+    }
+
+        public function deleteUser(Request $request)
     {
         try {
             $id = $request->input('deleteid');
             /*Perform insertion*/
-            DB::table('employee')
+            DB::table('employees')
                 ->where('id', $id)
                 ->delete();
             $employee = DB::table('employees')->get();
@@ -147,4 +154,6 @@ class EmployeeController extends Controller
             return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
     }
+
+
 }

@@ -38,21 +38,59 @@
 
 <script>
     $(document).on("click", "#userTable button.btn-primary", function () {
+
         let tr = $(this).closest('tr');
-        var photo = tr.find('img').attr("src");
+         var photo = tr.find('img').attr("src");
+
         var id = tr.find('td:eq(1)').text();
-        var name = tr.find('td:eq(2)').text();
-        var email = tr.find('td:eq(3)').text();
-        var phone = tr.find('td:eq(4)').text();
-        $('#editid').val(id);
-        $('#editname').val(name);
-        $('#editemail').val(email);
-        $('#editphone').val(phone);
-        $('#editimage').attr("src", photo);
-        $('#erroreditname').text('');
-        $('#erroreditemail').text('');
-        $('#erroreditphone').text('');
-        $('#erroreditphoto').text('');
+        var jsonData = {
+            userid: id,
+        };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "readeditemployee",  // URL to which the data will be sent
+            method: "POST",     // Use the POST method
+            data: JSON.stringify(jsonData),
+            processData: false,
+            contentType: "application/json",
+            datatype: "Json",
+            success: function (response) {
+                var name = response.name;
+                var email = response.email;
+                var phone = response.phone;
+
+                $('#editid').val(id);
+                $('#editname').val(name);
+                $('#editemail').val(email);
+                $('#editphone').val(phone);
+                $('#editimage').attr("src", photo);
+                $('#erroreditname').text('');
+                $('#erroreditemail').text('');
+                $('#erroreditphone').text('');
+                $('#erroreditphoto').text('');
+            },
+            error: function (xhr, status, error) {
+                console.log(response);
+            }
+        });
+
+
+        // var name = tr.find('td:eq(2)').text();
+        // var email = tr.find('td:eq(3)').text();
+        // var phone = tr.find('td:eq(4)').text();
+        // $('#editid').val(id);
+        // $('#editname').val(name);
+        // $('#editemail').val(email);
+        // $('#editphone').val(phone);
+        // $('#editimage').attr("src", photo);
+        // $('#erroreditname').text('');
+        // $('#erroreditemail').text('');
+        // $('#erroreditphone').text('');
+        // $('#erroreditphoto').text('');
     });
 
     $(document).on("click", "#userTable button.btn-danger", function () {

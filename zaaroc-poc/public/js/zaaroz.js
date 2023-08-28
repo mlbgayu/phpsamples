@@ -156,3 +156,5 @@ $("#adduserbutton" ).on("click",function() {
     $('#erroraddphoto').text('');
 
 });
+
+

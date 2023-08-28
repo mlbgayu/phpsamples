@@ -32,16 +32,18 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="name" >Name</label>
-                <input type="text"   class="form-control" id="name" name="name" value="{{$user->name}}">
+{{--                <input type="text"   class="form-control" id="name" name="name" value="{{$user->name}}">--}}
+                <input type="text"   class="form-control" id="name" name="name" value="{{$name}}">
                 <x-input-error class="form-control"  :messages="$errors->get('name')" />
             </div><br/>
 
             <div class="form-group col-md-3">
                 <label for="email" >Email</label>
-                 <input type="email" name="email"  class="form-control" id="email" value="{{$user->email}}">
+{{--                 <input type="email" name="email"  class="form-control" id="email" value="{{$user->email}}">--}}
+                <input type="email" name="email"  class="form-control" id="email" value="{{$email}}">
                  <x-input-error class="mt-2" :messages="$errors->get('email')" />
             </div><br/>
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+           {{-- @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-warning">
                         {{ __('Your email address is unverified.') }}
@@ -57,12 +59,13 @@
                         </p>
                     @endif
                 </div>
-            @endif
+            @endif--}}
         </div>
 
             <div class="form-group col-md-3">
                 <label for="phone" >{{config('ui.phone')}}</label>
-                <input type="text"  class="form-control" name="phone" id="phone" value="{{$user->phone}}" size="100">
+                {{--<input type="text"  class="form-control" name="phone" id="phone" value="{{$user->phone}}" size="100">--}}
+                <input type="text"  class="form-control" name="phone" id="phone" value="{{$phone}}" size="100">
                 <x-input-error class="mt-2" :messages="$errors->get('phone')" />
             </div><br/>
 

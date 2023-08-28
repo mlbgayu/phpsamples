@@ -17,7 +17,6 @@
     <div id="erroraddemail" class="text-danger"></div>
     <br/>
 
-
     <!--Phone-->
     <label for="Phone" class="form-label">{{config('ui.phone')}}</label>
     <br/>

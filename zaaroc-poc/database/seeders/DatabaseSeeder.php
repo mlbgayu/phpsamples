@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
              'email' => 'mlbgayu@gmail.com',
              'password'=>'password123',
              'phone'=>'+91 9789780997'
-
          ]);
-          Employee::factory(100)->create();
+          Employee::factory(31)->create();
     }
 }
