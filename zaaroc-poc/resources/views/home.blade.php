@@ -4,13 +4,13 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <div class="d-flex justify-content-between mb-3 border p-3 bg-light">
+  {{--  <div class="d-flex justify-content-between mb-3 border p-3 bg-light">
         <p class="h4 text-dark">Dashboard</p>
         <div >
         </div>
-    </div>
+    </div>--}}
     <div class="container-fluid border">
-        <p class="h6  text-primary">Welcome to {{ config('app.name') }}</p>
+        <p class="h2  text-primary">Welcome to {{ config('app.name') }}</p>
     </div>
 
 

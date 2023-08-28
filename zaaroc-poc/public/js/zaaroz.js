@@ -49,12 +49,28 @@ $(document).ready(function() {
             datatype: "Json",
             success: function (response) {
                 $("#userTable").html(response);
+                modal.hide();
              },
             error: function (xhr, status, error) {
+                if (xhr.responseJSON) {
+                    var message = xhr.responseJSON.message;
+                    var errors = xhr.responseJSON.errors;
+                    var errorName = errors.editname;
+                    var errorEmail = errors.editemail;
+                    var errorPhone = errors.editphone;
+                    var errorPhoto = errors.editphoto;
+                    // var name = errors.name;
+
+
+                    $('#erroreditname').text(errorName);
+                    $('#erroreditemail').text(errorEmail);
+                    $('#erroreditphone').text(errorPhone);
+                    $('#erroreditphoto').text(errorPhoto);
+                }
                 console.error(error);
             }
         });
-        modal.hide();
+
 
     });
 
@@ -64,6 +80,7 @@ $(document).ready(function() {
         var formData = new FormData($("#insertUser")[0]);
         var myModal = $("#addUserModal");
         var modal = bootstrap.Modal.getInstance(myModal);
+
         // ajax query
         $.ajaxSetup({
             headers: {
@@ -81,13 +98,29 @@ $(document).ready(function() {
                 $("#userTable").html(response);
                 // Handle the successful response here
                 // console.log(response);
+                 modal.hide();
             },
             error: function (xhr, status, error) {
                 // Handle errors here
-                console.error(error);
+                if (xhr.responseJSON) {
+                    var message = xhr.responseJSON.message;
+                    var errors = xhr.responseJSON.errors;
+                    var errorName = errors.name;
+                    var errorEmail = errors.email;
+                    var errorPhone = errors.phone;
+                    var errorPhoto = errors.photo;
+                    // var name = errors.name;
+
+
+                    $('#erroraddname').text(errorName);
+                    $('#erroraddemail').text(errorEmail);
+                    $('#erroraddphone').text(errorPhone);
+                    $('#erroraddphoto').text(errorPhoto);
+                }
+                // modal.show();
             }
         });
-        modal.hide();
+
     });
 
 
@@ -115,3 +148,13 @@ $(document).ready(function() {
 
 
 });
+
+$("#adduserbutton" ).on("click",function() {
+    $('#erroraddname').text('');
+    $('#erroraddemail').text('');
+    $('#erroraddphone').text('');
+    $('#erroraddphoto').text('');
+
+});
+
+

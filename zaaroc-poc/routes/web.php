@@ -22,10 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $employee = DB::table('employee')->get();
-    return view('dashboard', compact('employee'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home', function () {
+    $employee = DB::table('employees')->get();
+    return view('home', compact('employee'));
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,8 +35,9 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/addemployee',[EmployeeController::class,'insertUser'])->name('employee.insertuser');
 Route::post('/editemployee',[EmployeeController::class,'updateUser'])->name('employee.updateUser');
+Route::post('/readeditemployee',[EmployeeController::class,'readUpdateUser'])->name('employee.readUpdateUser');
 Route::post('/deleteemployee',[EmployeeController::class,'deleteUser'])->name('employee.deleteuser');
-Route::get('/reademployee', [EmployeeController::class, 'readUser'])
-->middleware(['auth', 'verified'])->name('employee.readUser');
+Route::get('/reademployee', [EmployeeController::class, 'readUser'])->middleware(['auth', 'verified'])->name('employee.readUser');
+Route::get('/paginateemployee', [EmployeeController::class, 'paginateemployee']);
 
 require __DIR__.'/auth.php';
